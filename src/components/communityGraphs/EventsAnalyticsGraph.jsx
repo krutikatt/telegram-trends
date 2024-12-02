@@ -1,0 +1,165 @@
+import React, { useEffect, useState } from "react";
+import { Box, Card, CardContent, Typography } from "@mui/material";
+import { csv } from "d3-fetch";
+
+// Import individual graph components
+import LineChart1 from "./cmscharts/EventAnalytics/LineChart1"; // Events Created
+import BarChart1 from "./cmscharts/EventAnalytics/BarChart1"; // Active Days
+import LineChart2 from "./cmscharts/EventAnalytics/LineChart2"; // Engagement
+import BarChart2 from "./cmscharts/EventAnalytics/BarChart2"; // Promotion
+import Leaderboard from "./cmscharts/EventAnalytics/LeaderBoard"; // Top Organizers
+
+const EventAnalyticsGraph = ({ lineChartCsvFile }) => {
+  const [lineChartData, setLineChartData] = useState([]);
+
+  // Function to fetch and parse CSV data
+  const fetchData = async (file, setData) => {
+    try {
+      const data = await csv(file);
+      setData(data);
+    } catch (error) {
+      console.error(`Error fetching ${file}:`, error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(lineChartCsvFile, setLineChartData);
+  }, [lineChartCsvFile]);
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row" }, // Responsive layout
+        gap: 1,
+        height: "100%",
+      }}
+    >
+      {/* Left column for graphs (3x2 layout) */}
+      <Box
+        sx={{
+          width: { xs: "100%", lg: "60%" },
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)", // Two columns layout
+          gridTemplateRows: "repeat(3, auto)", // Three rows layout
+          gap: 1,
+        }}
+      >
+        {/* Events Created - Line Chart */}
+        <Card
+          sx={{
+            transition: "box-shadow 0.3s ease-in-out",
+            "&:hover": { boxShadow: `0px 4px 20px 0px #54d5d9` },
+            padding: 2,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Events Created
+          </Typography>
+          <Box
+            sx={{
+              height: "150px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <LineChart1 data={lineChartData} />
+          </Box>
+        </Card>
+
+        {/* Active Days - Bar Chart */}
+        <Card
+          sx={{
+            transition: "box-shadow 0.3s ease-in-out",
+            "&:hover": { boxShadow: `0px 4px 20px 0px #54d5d9` },
+            padding: 2,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Active Days
+          </Typography>
+          <Box
+            sx={{
+              height: "150px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <BarChart1
+              labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
+              data={[30, 40, 35, 60, 50, 70, 80]}
+            />
+          </Box>
+        </Card>
+
+        {/* Engagement - Line Chart */}
+        <Card
+          sx={{
+            transition: "box-shadow 0.3s ease-in-out",
+            "&:hover": { boxShadow: `0px 4px 20px 0px #54d5d9` },
+            padding: 2,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Engagement Trend
+          </Typography>
+          <Box
+            sx={{
+              height: "150px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <LineChart2 data={lineChartData} />
+          </Box>
+        </Card>
+
+        {/* Promotion - Bar Chart */}
+        <Card
+          sx={{
+            transition: "box-shadow 0.3s ease-in-out",
+            "&:hover": { boxShadow: `0px 4px 20px 0px #54d5d9` },
+            padding: 2,
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Promoted Events
+          </Typography>
+          <Box
+            sx={{
+              height: "150px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <BarChart2
+              labels={["Event1", "Event2", "Event3"]}
+              data={[50, 70, 40]}
+            />
+          </Box>
+        </Card>
+      </Box>
+
+      {/* Right column for Leaderboard */}
+      <Box sx={{ width: { xs: "100%", lg: "40%" } }}>
+        <Card
+          sx={{
+            height: "100%",
+            transition: "box-shadow 0.3s ease-in-out",
+            "&:hover": { boxShadow: `0px 4px 20px 0px #54d5d9` },
+          }}
+        >
+          <CardContent>
+            <Leaderboard />
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
+  );
+};
+
+export default EventAnalyticsGraph;
