@@ -1,0 +1,21 @@
+.groups-page {
+  padding: 20px;
+  text-align: center;
+}
+
+.groups-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.group-box {
+  border: 2px solid #ccc;
+  padding: 15px;
+  width: 150px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
