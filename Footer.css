@@ -1,0 +1,61 @@
+.footer {
+  background-color: #121212;
+  color: white;
+  display: flex;
+  justify-content: center; /* Center the content within the footer */
+  padding: 20px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); /* Optional: adds a shadow */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px; /* Ensures content doesn't touch the edges */
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+}
+
+.footer-section {
+  cursor: pointer;
+  text-align: center;
+  flex: 1;
+  padding: 0 10px;
+  transition: transform 0.2s ease, color 0.2s ease;
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.footer-section:hover {
+  transform: scale(1.05);
+  color: #54d5d9;
+}
+
+/* Horizontal responsiveness */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 0 10px; /* Adjust padding */
+    flex-direction: row; /* Maintain horizontal layout */
+    justify-content: space-around; /* Space out sections */
+  }
+
+  .footer-section {
+    flex: 1 1 auto; /* Allow sections to take up available space */
+    padding: 5px; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 15px 0; /* Reduce padding for smaller screens */
+  }
+
+  .footer-section {
+    font-size: 14px; /* Adjust font size for readability */
+  }
+}
